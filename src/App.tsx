@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
+import { Transactions } from './pages/Transactions/indes'
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/defatult'
 
@@ -10,7 +11,7 @@ export function App() {
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
       
-      <h1>Hello world</h1>
+      <Transactions />
     </ThemeProvider>
   )
 }
