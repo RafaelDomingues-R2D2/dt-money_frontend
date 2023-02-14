@@ -7,7 +7,7 @@ import * as z from "zod"
 import { ClosseButton, Content, Overlay, TransactionType, TransactionTypeButton } from "./styles";
 
 const newTransactionFormSchema = z.object({
-    description: z.string(),
+    name: z.string(),
     price: z.number(),
     category: z.string(),
     type: z.enum(["income", "outcome"])
@@ -49,7 +49,7 @@ export function NewTransactionModal(){
                         type="text" 
                         placeholder="Descrição" 
                         required
-                        {...register("description")}
+                        {...register("name")}
                         
                     />
                     <input 

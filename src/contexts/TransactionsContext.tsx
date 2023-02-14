@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface Transaction {
     id: string
-    description: string
+    name: string
     category: string
     type: "income" | "outcome"
     price: number
@@ -27,7 +27,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps){
         const url = new URL("http://localhost:3001/transactions")
 
         if(query){
-            url.searchParams.append("q", query)
+            const url = new URL("http://localhost:3001/transactions/findByName")
+            url.searchParams.append("name", query)
         }
 
         const response = await fetch(url)
