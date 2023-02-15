@@ -27,25 +27,19 @@ interface TransactionsProviderProps {
     children: ReactNode
 }
 
-
-
 export const TransactionsContext = createContext({} as TransactionContextType)
 
 export function TransactionsProvider({ children }: TransactionsProviderProps){
     const [transactions, setTransactions] = useState<Transaction[]>([])
 
     async function fetchTransactions(query?: string) {
-        let response = await api.get("/transactions")
-        
-        if(query){
-            response = await api.get("/transactions/findByName", {
-                params: {
-                    name: query
-                }
-            })
-        }
+        const response = await api.get("/transactions", {
+            params: {
+                name: query
+            }
+        })
 
-        setTransactions(response.data)
+        setTransactions(response.data["transactions"])
     }
     
     async function createTransaction(data: CreateTransactionsInput){
@@ -58,7 +52,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps){
             price
         })
 
-        setTransactions(state => [response.data, ...transactions])
+        console.log(response.data)
+        setTransactions(state => [response.data["transactions"], ...transactions])
     }
 
     useEffect(() => {

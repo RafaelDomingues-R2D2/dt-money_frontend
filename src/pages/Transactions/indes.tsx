@@ -8,6 +8,7 @@ import { PriceHighLight, TransactionsContainer, TransactionsTable } from "./styl
 
 export function Transactions(){
     const { transactions } = useContext(TransactionsContext)
+    // console.log(transactions)
     return (
         <div>
             <Header />
