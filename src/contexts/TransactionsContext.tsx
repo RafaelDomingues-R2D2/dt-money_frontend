@@ -52,7 +52,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps){
             price
         })
 
-        console.log(response.data)
         setTransactions(state => [response.data["transactions"], ...transactions])
     }
 

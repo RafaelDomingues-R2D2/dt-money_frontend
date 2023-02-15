@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod"
 import { TransactionsContext } from "../../contexts/TransactionsContext";
-import { api } from "../../lib/axios";
 
 import { ClosseButton, Content, Overlay, TransactionType, TransactionTypeButton } from "./styles";
 
@@ -83,7 +82,6 @@ export function NewTransactionModal(){
                         control={control}
                         name="type"
                         render={({field }) => {
-                            console.log(field)
                             return (
                                 <TransactionType onValueChange={field.onChange} value={field.value}>
                                     <TransactionTypeButton variant="income" value="income">

@@ -6,6 +6,7 @@ import { SummaryCard, SummaryContainer } from "./styles";
 export function Summary(){
     const summary = useSummary()
 
+    console.log(summary)
     return (
         <SummaryContainer>
             <SummaryCard>
