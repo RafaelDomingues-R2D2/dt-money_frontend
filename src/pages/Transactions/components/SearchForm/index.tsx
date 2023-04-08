@@ -7,7 +7,7 @@ import { TransactionsContext } from "../../../../contexts/TransactionsContext";
 import { useContextSelector } from "use-context-selector";
 
 const searchFormSchema = z.object({
-    query: z.string()
+    name: z.string()
 })
 
 type SearchFormInputs = z.infer<typeof searchFormSchema>
@@ -26,7 +26,7 @@ export function SearchForm(){
     })
 
     async function handleSearchTransactions(data: SearchFormInputs){
-        await fetchTransactions(data.query)
+        await fetchTransactions(20, data.name)
     }
 
     return (
@@ -34,7 +34,7 @@ export function SearchForm(){
             <input 
                 type="text" 
                 placeholder="Busque por transações" 
-                {...register("query")}
+                {...register("name")}
             />
 
             <button type="submit" disabled={ isSubmitting }>

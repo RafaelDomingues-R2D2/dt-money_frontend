@@ -33,10 +33,11 @@ export const TransactionsContext = createContext({} as TransactionContextType)
 export function TransactionsProvider({ children }: TransactionsProviderProps){
     const [transactions, setTransactions] = useState<Transaction[]>([])
 
-    const fetchTransactions = useCallback(async (query?: string) => {
+    const fetchTransactions = useCallback(async (month: number, name?: string) => {
         const response = await api.get("/transactions", {
             params: {
-                name: query
+                month: month,
+                name: name,
             }
         })
 
@@ -57,7 +58,8 @@ export function TransactionsProvider({ children }: TransactionsProviderProps){
     }, [])
 
     useEffect(() => {
-        fetchTransactions()
+        const date = new Date()
+        fetchTransactions(date.getUTCMonth())
     },[])
     
     return (

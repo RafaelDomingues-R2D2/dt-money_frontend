@@ -1,16 +1,26 @@
-import { useContext, useEffect, useState } from "react";
 import { useContextSelector } from "use-context-selector";
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
 import { TransactionsContext } from "../../contexts/TransactionsContext";
 import { dateFormatter, priceFormatter } from "../../utils/formatter";
+import { FilterByMonth } from "./components/FilterByMonth";
 import { SearchForm } from "./components/SearchForm";
-import { PriceHighLight, TransactionsContainer, TransactionsTable } from "./styles";
+import { ButtonDelete, PriceHighLight, TransactionsContainer, TransactionsTable } from "./styles";
+import { api } from "../../lib/axios";
+import { Trash } from "phosphor-react";
 
 export function Transactions(){
     const transactions = useContextSelector(TransactionsContext, context => {
         return context.transactions
     })
+
+    const fetchTransactions = useContextSelector(TransactionsContext, context =>{
+        return context.fetchTransactions
+    })
+
+    function handleDeleteTransaction(id: string){
+        api.delete(`/transactions/${id}/delete`)
+    }
 
     return (
         <div>
@@ -18,6 +28,7 @@ export function Transactions(){
             <Summary />
 
             <TransactionsContainer>
+                <FilterByMonth />
                 <SearchForm />
                 <TransactionsTable>
                    <tbody>
@@ -33,6 +44,7 @@ export function Transactions(){
                                 </td>
                                 <td>{transaction.category}</td>
                                 <td>{dateFormatter.format(new Date(transaction.created_at))}</td>
+                                <td><ButtonDelete onClick={() => handleDeleteTransaction(transaction.id)}><Trash size={20} /></ButtonDelete></td>
                             </tr>
                         )
                     })}
